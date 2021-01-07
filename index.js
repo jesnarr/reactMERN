@@ -19,37 +19,40 @@ require('dotenv/config');
 // assigning environment variables
 const api = process.env.API_URL;
 
-// product router
-const productsRouter = require('./routers/products');
-const categoryRouter = require('./routers/category');
+// Routers
 const userRouter     = require('./routers/users');
-const orderRouter     = require('./routers/orders');
+const jobRouter      = require('./routers/jobs');
+// const productsRouter = require('./routers/products');
+// const categoryRouter = require('./routers/category');
+// const orderRouter     = require('./routers/orders');
 
 //middleware
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
-app.use(authJwt()); //authentication jwt
+// app.use(authJwt()); //authentication jwt
 app.use('/public/uploads', express.static(__dirname + '/public/uploads' )); //static public upload
 // app.use(errorHandler());
 // handling error
-app.use((err,req,res,next) => {
-    if(err.name === 'UnauthorizedError')
-    {
-        return  res.status(401).json({message: "The user is not authorized"})
-    }
-    if(err.name === 'ValidationError')
-    {
-        return res.status(401).json({message: err})
-    }
-    return res.status(500).json(err);
-});
+// app.use((err,req,res,next) => {
+//     if(err.name === 'UnauthorizedError')
+//     {
+//         return  res.status(401).json({message: "The user is not authorized"})
+//     }
+//     if(err.name === 'ValidationError')
+//     {
+//         return res.status(401).json({message: err})
+//     }
+//     return res.status(500).json(err);
+// });
 
 //Routers
-app.use(api+'/products',productsRouter);
-app.use(api+'/category',categoryRouter);
 app.use(api+'/users',userRouter);
-app.use(api+'/orders',orderRouter);
+app.use(api+'/jobs',jobRouter);
+
+// app.use(api+'/products',productsRouter);
+// app.use(api+'/category',categoryRouter);
+// app.use(api+'/orders',orderRouter);
 
  
 //database connection

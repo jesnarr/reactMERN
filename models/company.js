@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 
-const userSchema = new mongoose.Schema({
+const companySchema = new mongoose.Schema({
 
     name: {
         type: String,
@@ -19,15 +19,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    isAdmin: {
-        type: Boolean,
-        default: false
-    },
     street: {
-        type: String,
-        default: ''
-    },
-    apartment: {
         type: String,
         default: ''
     },
@@ -43,27 +35,25 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
-    address:{
-        type: String,
-        default: ''
-    },
     image:{
-        type: String,
-        default: '../assets/images/person.jpg'
+        type:String,
+        
     }
+    
+
 });
 
 
 // add virtual id or copy of _id
 // set _id to id
-userSchema.virtual('id').get(function ()
+companySchema.virtual('id').get(function ()
 {
     return this._id.toHexString();
 });
 
-userSchema.set('toJSON', {
+companySchema.set('toJSON', {
     virtuals: true,
 });
 // end of setting id
-// User table
-exports.User = mongoose.model('Users',userSchema);
+// Company table
+exports.Company = mongoose.model('Company',companySchema);
